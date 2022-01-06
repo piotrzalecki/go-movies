@@ -81,3 +81,19 @@ func (app *application) getAllMovieByGenre(w http.ResponseWriter, r *http.Reques
 		return
 	}
 }
+
+func (app *application) editMovie(w http.ResponseWriter, r *http.Request) {
+	type jsonResponse struct {
+		OK bool `json:"ok"`
+	}
+
+	ok := jsonResponse{
+		OK: true,
+	}
+
+	err := app.writeJson(w, http.StatusOK, ok, "response")
+	if err != nil {
+		app.errorJson(w, err)
+		return
+	}
+}
