@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from "react";
-import {BrowserRouter as Router, Switch, Route, Link, useParams, useRouteMatch} from 'react-router-dom';
+import {BrowserRouter as  Link, } from 'react-router-dom';
 
 export default class Genres extends Component {
 
