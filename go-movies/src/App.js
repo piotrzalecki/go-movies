@@ -7,6 +7,7 @@ import OneMovie from "./components/OneMovie";
 import Genres from "./components/Genres";
 import OneGenre from "./components/OneGenre";
 import EditMovie from "./components/EditMovie";
+import Login from "./components/Login";
 
 export default class App extends Component {
  
@@ -18,6 +19,14 @@ export default class App extends Component {
     }
     this.handleJWTChange(this.handleJWTChange.bind(this));
   }
+  componentDidMount() {
+    let t = window.localStorage.getItem("jwt");
+    if (t) {
+      if (this.state.jwt === "") {
+        this.setState({jwt: JSON.parse(t)});
+      }
+    }
+  }
 
   handleJWTChange = (jwt) => {
     this.setState({jwt: jwt});
@@ -25,6 +34,7 @@ export default class App extends Component {
 
   logout = () => {
     this.setState({jwt: ""});
+    window.localStorage.removeItem("jwt");
   }
 
   render() {
@@ -75,9 +85,12 @@ export default class App extends Component {
                 <Link to="/admin">Manage Catalogue</Link>
               </li>
               </Fragment>
-
-} 
+            } 
             </ul>
+
+            <pre>
+              {JSON.stringify(this.state, null, 3)}
+            </pre>
           </nav>
 
         </div>
@@ -95,11 +108,16 @@ export default class App extends Component {
               <Genres />
             </Route>
 
-            <Route path="/admin/movie/:id" component={EditMovie} />
+            <Route path="/admin/movie/:id" component={(props) => (<EditMovie {...props} jwt={this.state.jwt} /> )} />
 
-            <Route path="/admin">
-              <Admin />
-            </Route>
+            <Route exact path="/login" component={(props) => <Login {...props} handleJWTChange={this.handleJWTChange} />} />            
+
+            <Route path="/admin"
+              component={(props) => (
+                <Admin {...props} jwt={this.state.jwt} />
+              )}
+            />
+
             <Route path="/">
               <Home />
             </Route>
