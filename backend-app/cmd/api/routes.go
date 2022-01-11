@@ -32,5 +32,7 @@ func (app *application) routes() http.Handler {
 
 	router.POST("/v1/admin/editmovie", app.wrap(secure.ThenFunc(app.editMovie)))
 	// router.HandlerFunc(http.MethodPost, "/v1/admin/editmovie", app.editMovie)
+
+	router.HandlerFunc(http.MethodPost, "/v1/graphql", app.moviesGraphQL)
 	return app.enableCORS(router)
 }
