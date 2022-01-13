@@ -2,14 +2,14 @@ import React, {Component, Fragment} from "react";
 import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import Home from "./components/Home";
 import Admin from "./components/Admin";
-import OneMovie from "./components/OneMovie";
-import OneGenre from "./components/OneGenre";
-import EditMovie from "./components/EditMovie";
 import Login from "./components/Login";
 import GraphQL from "./components/GraphQL";
 import OneMovieGQL from "./components/OneMovieGQL";
 import MoviesFunc from "./components/MoviesFunc";
 import GenresFunc from "./components/GenresFunc";
+import OneMovieFunc from "./components/OneMovieFunc";
+import OneGenreFunc from "./components/OneGenreFunc";
+import EditMovieFunc from "./components/EditMovieFunc";
 
 export default class App extends Component {
  
@@ -99,19 +99,19 @@ export default class App extends Component {
 
         <div className='col-md-10'>
           <Switch>
-            <Route path="/movies/:id" component={OneMovie} />
+            <Route path="/movies/:id" component={OneMovieFunc} />
             <Route path="/moviesgql/:id" component={OneMovieGQL} />
             <Route path="/movies">
               <MoviesFunc />
             </Route>
 
-            <Route path="/genre/:id" component={OneGenre} />
+            <Route path="/genre/:id" component={OneGenreFunc} />
 
             <Route exact path="/genres">
               <GenresFunc />
             </Route>
 
-            <Route path="/admin/movie/:id" component={(props) => (<EditMovie {...props} jwt={this.state.jwt} /> )} />
+            <Route path="/admin/movie/:id" component={(props) => (<EditMovieFunc {...props} jwt={this.state.jwt} /> )} />
 
             <Route exact path="/login" component={(props) => <Login {...props} handleJWTChange={this.handleJWTChange} />} />            
 
